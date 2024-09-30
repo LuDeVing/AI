@@ -1,1 +1,1 @@
-I wrote different AI algorithms and saved them here.
+I wrote different AI algorithms.
