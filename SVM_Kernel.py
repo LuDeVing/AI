@@ -18,7 +18,6 @@ class SVM_Kernel:
         elif self.model == "rbf":
             return (self.alpha * self.y) @ self.kernel(self.X, x) + self.b
 
-
     def kernel(self, x1, x2):
         if self.model == "linear":
             return np.dot(x1, x2.T)
