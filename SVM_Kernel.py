@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class SVM_Kernel:
 
     def __init__(self, C=100.0, tol=1e-3, max_iter=1000, model="linear", gamma=1):
@@ -29,7 +30,6 @@ class SVM_Kernel:
             elif np.ndim(x1) > 1 and np.ndim(x2) > 1:
                 return np.exp(-(np.linalg.norm(x1[:, np.newaxis]
                                                - x2[np.newaxis, :], 2, axis=2) ** 2) / (2 * self.gamma ** 2))
-
 
     def calculate_bounds(self, alpha_j, alpha_i, y_j, y_i):
         if y_i != y_j:

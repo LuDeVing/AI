@@ -6,7 +6,6 @@ from Neural_Network import NeuralLayer, ActivationLayer, NeuralNetwork
 from matplotlib.widgets import Button
 
 
-
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
 X_train = X_train.reshape(X_train.shape[0], -1) / 255.0
@@ -60,7 +59,7 @@ def train():
 train()
 
 nn = NeuralNetwork(loss=cross_entropy_loss, loss_diff=cross_entropy_loss_diff,
-                        learning_rate=0.7, iters=2000, display_loss=True)
+                        learning_rate=0.7, iters=1000, display_loss=True)
 
 nn.add_layer(NeuralLayer(784, 16))  # Input layer to hidden layer
 nn.add_layer(ActivationLayer(relu, relu_diff))
