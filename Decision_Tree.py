@@ -13,7 +13,7 @@ class Node:
 
 class DecisionTree:
 
-    def __init__(self, max_depth=10000):
+    def __init__(self, max_depth=100):
         self.max_depth = max_depth
         self.root = None
 
@@ -37,11 +37,14 @@ class DecisionTree:
             node.output = np.bincount(y).argmax()
             return node
 
-        designator_gini = 10000000000000
+        designator_gini = None
         designator_idx = None
         designator_number = None
 
         for idx, x in enumerate(X.T):
+
+            if len(set(x)) == 1:
+                continue
 
             sorted_pairs = sorted(zip(x, y), key=lambda pair: pair[0])
             sorted_x, sorted_y = zip(*sorted_pairs)
@@ -49,10 +52,13 @@ class DecisionTree:
             sorted_x = list(sorted_x)
             sorted_y = list(sorted_y)
 
-            best_gini = 10000000000000
+            best_gini = None
             best_des = None
 
             for i in range(1, len(sorted(sorted_x))):
+
+                if i != 1 and sorted_x[i] == sorted_x[i - 1]:
+                    continue
 
                 left_y = sorted_y[:i]
                 right_y = sorted_y[i:]
@@ -62,11 +68,11 @@ class DecisionTree:
 
                 current_gini = left_weight * self.gini_impurity(left_y) + right_weight * self.gini_impurity(right_y)
 
-                if current_gini < best_gini:
+                if best_gini is None or current_gini < best_gini:
                     best_gini = current_gini
                     best_des = sorted_x[i]
 
-            if best_gini < designator_gini:
+            if designator_gini is None or best_gini < designator_gini:
                 designator_gini = best_gini
                 designator_idx = idx
                 designator_number = best_des
@@ -94,7 +100,7 @@ class DecisionTree:
             return DecisionTree.find_value(x, node.r)
 
     def predict(self, X):
-        return [self.find_value(x, self.root) for x in X]
+        return np.array([self.find_value(x, self.root) for x in X])
 
     @staticmethod
     def split_X_y_by_column(X, y, idx, best_des):
