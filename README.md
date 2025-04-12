@@ -13,8 +13,7 @@ This project showcases 🛠️ implementations of various fundamental ML algorit
 2. 🧠 [Features and Implemented Algorithms](#features-and-implemented-algorithms)  
 3. 🗂️ [Project Structure](#project-structure)  
 4. 📦 [Dependencies and Installation](#dependencies-and-installation)  
-5. 🚀 [Usage](#usage)  
-6. 🧪 [Examples](#examples)  
+5. 🧪 [Examples](#examples)  
 
 ---
 
@@ -97,11 +96,6 @@ venv\Scripts\activate     # Windows
 # tensoflow is only used in multihead attention 
 pip install numpy tensorflow scikit-learn matplotlib
 ```
-
-## Usage
-
-1. **Running an individual algorithm**:  
-   Just import the file and use the class for testing or training. code is pretty self explainatory
 
 ## Examples
 
