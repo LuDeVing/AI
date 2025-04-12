@@ -81,6 +81,11 @@ class DecisionTree:
 
         node = Node()
 
+        if X1 is None:
+            node.is_leaf = True
+            node.output = np.bincount(y).argmax()
+            return node
+
         node.predicate = (lambda input: input[designator_idx] < designator_number)
 
         node.l = self.build_tree(X1, y1, depth + 1)
@@ -104,8 +109,15 @@ class DecisionTree:
 
     @staticmethod
     def split_X_y_by_column(X, y, idx, best_des):
-        X1, y1 = zip(*[(row, y[i]) for i, row in enumerate(X) if row[idx] < best_des])
-        X2, y2 = zip(*[(row, y[i]) for i, row in enumerate(X) if row[idx] >= best_des])
+
+        filtered1 = [(row, y[i]) for i, row in enumerate(X) if row[idx] < best_des]
+        filtered2 = [(row, y[i]) for i, row in enumerate(X) if row[idx] >= best_des]
+
+        if len(filtered1) == 0 or len(filtered2) == 0:
+            return None, None, None, None
+
+        X1, y1 = zip(*filtered1)
+        X2, y2 = zip(*filtered2)
 
         X1 = np.array(X1)
         y1 = np.array(y1)
